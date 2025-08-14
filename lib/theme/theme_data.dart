@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 final ThemeData appTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
   primaryColor: Colors.pink,
+  highlightColor: Colors.amberAccent,
   useMaterial3: true,
   canvasColor: Color.fromRGBO(255, 254, 229, 1),
   scaffoldBackgroundColor: Color.fromRGBO(255, 254, 229, 1),
