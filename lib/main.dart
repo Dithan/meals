@@ -23,6 +23,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   List<Meal> _avaliableMeals = dummyMeals;
   Settings settings = Settings();
+  List<Meal> _favoriteMeals = [];
 
   void _filterMeals(Settings settings) {
     setState(() {
@@ -43,17 +44,34 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _toggleFavorite(Meal meal) {
+    setState(() {
+      _favoriteMeals.contains(meal)
+          ? _favoriteMeals.remove(meal)
+          : _favoriteMeals.add(meal);
+    });
+  }
+
+  bool _isFavorite(Meal meal) {
+    return _favoriteMeals.contains(meal);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: appTheme,
       routes: {
-        AppRoutes.HOME: (context) => TabsScreen(),
+        AppRoutes.HOME: (context) => TabsScreen(
+              favoriteMeals: _favoriteMeals,
+            ),
         AppRoutes.CATEGORIES_MEALS: (context) => CategoriesMealsScreen(
               meals: _avaliableMeals,
             ),
-        AppRoutes.MEAL_DETAIL: (context) => MealDetailScreen(),
+        AppRoutes.MEAL_DETAIL: (context) => MealDetailScreen(
+              onToggleFavorite: _toggleFavorite,
+              isFavorite: _isFavorite,
+            ),
         AppRoutes.SETTINGS: (context) => SettingsScreen(
               onSettingsChanged: _filterMeals,
               settings: settings,
